@@ -4,10 +4,10 @@ class multiPlayerPage extends StatefulWidget {
   const multiPlayerPage({super.key});
 
   @override
-  State<multiPlayerPage> createState() => _singlePlayerPageState();
+  State<multiPlayerPage> createState() => _multiPlayerPageState();
 }
 
-class _singlePlayerPageState extends State<multiPlayerPage> {
+class _multiPlayerPageState extends State<multiPlayerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold();

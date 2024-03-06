@@ -1,3 +1,3 @@
-bool themIdx = true;
-bool langIdx = true;
+int themIdx = 1;
+int langIdx = 1;
 double fontSize = 30;

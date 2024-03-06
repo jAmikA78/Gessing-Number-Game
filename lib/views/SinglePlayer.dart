@@ -13,7 +13,7 @@ class _singlePlayerPageState extends State<singlePlayerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text((langIdx == true) ? "single player" : "لعب فردى"),
+        title: Text((langIdx == 1) ? "single player" : "لعب فردى"),
       ),
     );
   }
