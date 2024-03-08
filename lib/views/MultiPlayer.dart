@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -11,16 +10,15 @@ class multiPlayerPage extends StatefulWidget {
   State<multiPlayerPage> createState() => _multiPlayerPageState();
 }
 
-class player {
-  int num1 = 0;
-  int num2 = 0;
-  int score = 0;
-  bool lose = false;
-}
+Random random = Random();
 
 class _multiPlayerPageState extends State<multiPlayerPage> {
-  player player1 = new player();
-  player player2 = new player();
+  int num11 = random.nextInt(100) + 1;
+  int num12 = random.nextInt(100) + 1;
+  int num21 = random.nextInt(100) + 1;
+  int num22 = random.nextInt(100) + 1;
+  int score1 = 0;
+  int score2 = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +34,8 @@ class _multiPlayerPageState extends State<multiPlayerPage> {
                 children: [
                   Text(
                     (langIdx == 1)
-                        ? "your Score = ${player1.score}"
-                        : "عدد نقاطق الحالى = ${player1.score}",
+                        ? "your Score = $score1"
+                        : "عدد نقاطق الحالى = $score1",
                     style: Theme.of(context).textTheme.headline1,
                   ),
                   Row(
@@ -48,7 +46,7 @@ class _multiPlayerPageState extends State<multiPlayerPage> {
                             choice(1, 1);
                           },
                           child: Text(
-                            player1.num1.toString(),
+                            num11.toString(),
                             style: Theme.of(context).textTheme.headline1,
                           )),
                       ElevatedButton(
@@ -61,7 +59,7 @@ class _multiPlayerPageState extends State<multiPlayerPage> {
                             choice(1, 3);
                           },
                           child: Text(
-                            player1.num1.toString(),
+                            num12.toString(),
                             style: Theme.of(context).textTheme.headline1,
                           ))
                     ],
@@ -77,8 +75,8 @@ class _multiPlayerPageState extends State<multiPlayerPage> {
               children: [
                 Text(
                   (langIdx == 1)
-                      ? "your Score = ${player2.score}"
-                      : "عدد نقاطق الحالى = ${player2.score}",
+                      ? "your Score = $score2"
+                      : "عدد نقاطق الحالى = $score2",
                   style: Theme.of(context).textTheme.headline1,
                 ),
                 Row(
@@ -89,7 +87,7 @@ class _multiPlayerPageState extends State<multiPlayerPage> {
                           choice(2, 1);
                         },
                         child: Text(
-                          player1.num2.toString(),
+                          num22.toString(),
                           style: Theme.of(context).textTheme.headline1,
                         )),
                     ElevatedButton(
@@ -102,7 +100,7 @@ class _multiPlayerPageState extends State<multiPlayerPage> {
                           choice(2, 3);
                         },
                         child: Text(
-                          player2.num1.toString(),
+                          num21.toString(),
                           style: Theme.of(context).textTheme.headline1,
                         ))
                   ],
@@ -115,5 +113,36 @@ class _multiPlayerPageState extends State<multiPlayerPage> {
     );
   }
 
-  void choice(int playerNum, int choiceNum) {}
+  void choice(int playerNum, int choiceNum) {
+    bool flag = true;
+    setState(() {
+      if (playerNum == 1) {
+        if (num11 > num12 && choiceNum != 1) {
+          flag = false;
+        } else if (num11 == num12 && choiceNum != 2) {
+          flag = false;
+        } else if (num11 < num12 && choiceNum != 3) {
+          flag = false;
+        }
+        if (flag) {
+          score1++;
+        }
+        num11 = random.nextInt(100) + 1;
+        num12 = random.nextInt(100) + 1;
+      } else {
+        if (num21 > num22 && choiceNum != 3) {
+          flag = false;
+        } else if (num21 == num22 && choiceNum != 2) {
+          flag = false;
+        } else if (num21 < num22 && choiceNum != 1) {
+          flag = false;
+        }
+        if (flag) {
+          score2++;
+        }
+        num21 = random.nextInt(100) + 1;
+        num22 = random.nextInt(100) + 1;
+      }
+    });
+  }
 }

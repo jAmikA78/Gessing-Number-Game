@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gessing_numbers_game/const/SharedPreferences.dart';
 import 'package:gessing_numbers_game/const/const.dart';
 import 'package:gessing_numbers_game/themes/ThemeProvider.dart';
 import 'package:gessing_numbers_game/views/MultiPlayer.dart';
@@ -20,7 +21,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          (langIdx == 1) ? "Gessing Game" : "لعبة تخمين",
+          (langIdx == 1) ? "Guessing Game" : "لعبة تخمين",
         ),
       ),
       body: Column(
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text(
               (langIdx == 1) ? "Single" : "فردى",
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           const SizedBox(height: 30),
@@ -51,6 +53,7 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text(
               (langIdx == 1) ? "Double" : "زوجى",
+              style: Theme.of(context).textTheme.headline1,
             ),
           ),
           const SizedBox(height: 30),
@@ -58,28 +61,30 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    langIdx ^= 1;
-                  });
+                onPressed: () async {
+                  langIdx ^= 1;
+                  await saveData();
+                  setState(() {});
                 },
                 child: Text(
                   (langIdx == 1) ? "العربية" : "English",
+                  style: Theme.of(context).textTheme.headline1,
                 ),
               ),
               const SizedBox(width: 30),
               ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      Provider.of<ThemeProvider>(context, listen: false)
-                          .toggleTheme();
-                      themIdx ^= 1;
-                    });
+                  onPressed: () async {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme();
+                    themIdx ^= 1;
+                    await saveData();
+                    setState(() {});
                   },
                   child: Text(
                     (langIdx == 1)
                         ? ((themIdx == 1) ? "Light" : "dark")
                         : ((themIdx == 1) ? "فاتح" : "داكن"),
+                    style: Theme.of(context).textTheme.headline1,
                   )),
             ],
           ),
